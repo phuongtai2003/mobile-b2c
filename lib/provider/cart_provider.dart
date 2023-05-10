@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:se_final_app/models/cart.dart';
 import 'package:se_final_app/models/phone.dart';
+import 'package:se_final_app/utils/utils.dart';
 
 class CartProvider extends ChangeNotifier {
   Cart _cart = Cart(
@@ -10,11 +11,11 @@ class CartProvider extends ChangeNotifier {
 
   Cart get cart => _cart;
 
-  set cart(Cart cart) {
+  set setCart(Cart cart) {
     _cart = cart;
   }
 
-  void addToCart(Phone phone, int quantity) {
+  void addToCart(BuildContext context, Phone phone, int quantity) {
     final isContain = _cart.phone.contains(phone);
     if (isContain) {
       final index = _cart.phone.indexOf(phone);
@@ -23,6 +24,10 @@ class CartProvider extends ChangeNotifier {
       _cart.phone.add(phone);
       _cart.quantity.add(quantity);
     }
+    showSnackBar(
+      context,
+      "Add ${phone.phoneName} to cart successfully",
+    );
     notifyListeners();
   }
 

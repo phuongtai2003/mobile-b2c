@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:se_final_app/constants/global_variables.dart';
 import 'package:se_final_app/models/phone.dart';
 
@@ -17,6 +18,8 @@ class CartItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final f = NumberFormat("#,##0");
+    int total = phone.price * quantity;
     return Container(
       padding: const EdgeInsets.all(
         8,
@@ -31,10 +34,14 @@ class CartItem extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.network(
-            phone.image,
-            width: 100,
-            height: 100,
+          Container(
+            alignment: Alignment.center,
+            child: Image.network(
+              phone.image,
+              width: 100,
+              height: 100,
+              fit: BoxFit.cover,
+            ),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,7 +62,15 @@ class CartItem extends StatelessWidget {
                 style: const TextStyle(
                   fontSize: 17,
                   fontWeight: FontWeight.w500,
-                  color: GlobalVariables.primaryColor,
+                  color: GlobalVariables.secondaryColor,
+                ),
+              ),
+              Text(
+                "${f.format(total)} VNĐ",
+                style: const TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w500,
+                  color: GlobalVariables.secondaryColor,
                 ),
               ),
               const SizedBox(

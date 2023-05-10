@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:se_final_app/common/custom_button.dart';
 import 'package:se_final_app/constants/global_variables.dart';
+import 'package:se_final_app/features/address/screens/address_screen.dart';
 import 'package:se_final_app/features/cart/widgets/cart_item.dart';
 import 'package:se_final_app/provider/cart_provider.dart';
 
@@ -15,11 +16,22 @@ class CartScreen extends StatefulWidget {
 
 class _CartScreenState extends State<CartScreen> {
   final f = NumberFormat("#,##0");
-  int total = 0;
+
+  void navigateToAddressScreen() {
+    Navigator.pushNamed(
+      context,
+      AddressScreen.routeName,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final cartProvider = context.watch<CartProvider>();
-    cartProvider.cart.phone.map((x) => total += x.price).toList();
+    int total = 0;
+    for (int i = 0; i < cartProvider.cart.phone.length; i++) {
+      total = total +
+          (cartProvider.cart.phone[i].price * cartProvider.cart.quantity[i]);
+    }
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
@@ -35,8 +47,8 @@ class _CartScreenState extends State<CartScreen> {
                 ),
                 child: Image.asset(
                   "assets/images/brandLogo.png",
-                  width: 50,
-                  height: 50,
+                  width: 40,
+                  height: 40,
                 ),
               ),
             ],
@@ -59,7 +71,7 @@ class _CartScreenState extends State<CartScreen> {
                       cartProvider.removeFromCart(phone, 1);
                     },
                     onAdd: () {
-                      cartProvider.addToCart(phone, 1);
+                      cartProvider.addToCart(context, phone, 1);
                     },
                   );
                 },
@@ -84,6 +96,7 @@ class _CartScreenState extends State<CartScreen> {
                       "${f.format(total)} VNĐ",
                       style: const TextStyle(
                         fontSize: 25,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
@@ -92,7 +105,7 @@ class _CartScreenState extends State<CartScreen> {
                   ),
                   Expanded(
                     child: CustomButton(
-                      onPressed: () {},
+                      onPressed: navigateToAddressScreen,
                       buttonText: "Order",
                       buttonColor: GlobalVariables.secondaryColor,
                     ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:se_final_app/common/customer_bottom_bar.dart';
+import 'package:se_final_app/features/address/screens/address_screen.dart';
 import 'package:se_final_app/features/auth/screens/auth_screen.dart';
 import 'package:se_final_app/features/cart/screens/cart_screen.dart';
 import 'package:se_final_app/features/details/screens/phone_details_screen.dart';
@@ -8,6 +9,7 @@ import 'package:se_final_app/features/home/screens/home_screen.dart';
 import 'package:se_final_app/features/home/screens/search_screen.dart';
 import 'package:se_final_app/features/introductory/screens/introduction_screen.dart';
 import 'package:se_final_app/features/order/screens/order_screen.dart';
+import 'package:se_final_app/features/payment/screens/payment_screen.dart';
 import 'package:se_final_app/features/profile/screens/profile_screen.dart';
 import 'package:se_final_app/models/phone.dart';
 
@@ -83,6 +85,20 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
         final int compId = settings.arguments as int;
         return MaterialPageRoute(
           builder: (_) => BrandSearchScreen(compId: compId),
+          settings: settings,
+        );
+      }
+    case AddressScreen.routeName:
+      {
+        return MaterialPageRoute(
+          builder: (_) => const AddressScreen(),
+          settings: settings,
+        );
+      }
+    case PaymentScreen.routeName:
+      {
+        return MaterialPageRoute(
+          builder: (_) => const PaymentScreen(),
           settings: settings,
         );
       }

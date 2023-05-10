@@ -153,7 +153,10 @@ class _HomeScreenState extends State<HomeScreen> {
               decoration: const BoxDecoration(
                 color: Colors.black12,
               ),
-              height: 90,
+              padding: const EdgeInsets.all(
+                8,
+              ),
+              height: 105,
               child: ListView.builder(
                 itemCount: GlobalVariables.companyList.length,
                 itemExtent: 100,
