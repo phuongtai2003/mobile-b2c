@@ -162,7 +162,7 @@ class _PhoneDetailsScreenState extends State<PhoneDetailsScreen> {
                     ),
                     CustomButton(
                       onPressed: () {
-                        cartProvider.addToCart(context, widget.phone, 1);
+                        cartProvider.addToCart(context ,widget.phone, 1);
                       },
                       buttonText: "Add To Cart",
                       buttonColor: GlobalVariables.primaryColor,

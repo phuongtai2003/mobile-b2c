@@ -16,9 +16,16 @@ class CartProvider extends ChangeNotifier {
   }
 
   void addToCart(BuildContext context, Phone phone, int quantity) {
-    final isContain = _cart.phone.contains(phone);
+    bool isContain = false;
+    int index = 0;
+    for (int i = 0; i < _cart.phone.length; i++) {
+      if (_cart.phone[i].phoneId == phone.phoneId) {
+        isContain = true;
+        index = i;
+        break;
+      }
+    }
     if (isContain) {
-      final index = _cart.phone.indexOf(phone);
       _cart.quantity[index] += quantity;
     } else {
       _cart.phone.add(phone);
@@ -26,7 +33,7 @@ class CartProvider extends ChangeNotifier {
     }
     showSnackBar(
       context,
-      "Add ${phone.phoneName} to cart successfully",
+      "Added ${phone.phoneName} to cart successfully",
     );
     notifyListeners();
   }
