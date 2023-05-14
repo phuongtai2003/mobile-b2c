@@ -9,8 +9,10 @@ import 'package:se_final_app/features/home/screens/home_screen.dart';
 import 'package:se_final_app/features/home/screens/search_screen.dart';
 import 'package:se_final_app/features/introductory/screens/introduction_screen.dart';
 import 'package:se_final_app/features/order/screens/order_screen.dart';
+import 'package:se_final_app/features/order_details/screens/order_details_screen.dart';
 import 'package:se_final_app/features/payment/screens/payment_screen.dart';
 import 'package:se_final_app/features/profile/screens/profile_screen.dart';
+import 'package:se_final_app/models/order.dart';
 import 'package:se_final_app/models/phone.dart';
 
 Route<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -100,6 +102,15 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
         return MaterialPageRoute(
           builder: (_) => const PaymentScreen(),
           settings: settings,
+        );
+      }
+    case OrderDetailsScreen.routeName:
+      {
+        final order = settings.arguments as Order;
+        return MaterialPageRoute(
+          builder: (_) => OrderDetailsScreen(
+            order: order,
+          ),
         );
       }
     default:

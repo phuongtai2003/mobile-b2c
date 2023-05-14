@@ -17,7 +17,7 @@ class CartProvider extends ChangeNotifier {
 
   void addToCart(BuildContext context, Phone phone, int quantity) {
     bool isContain = false;
-    int index = 0;
+    int index = -1;
     for (int i = 0; i < _cart.phone.length; i++) {
       if (_cart.phone[i].phoneId == phone.phoneId) {
         isContain = true;
@@ -39,9 +39,16 @@ class CartProvider extends ChangeNotifier {
   }
 
   void removeFromCart(Phone phone, int quantity) {
-    final isContain = _cart.phone.contains(phone);
+    bool isContain = false;
+    int index = -1;
+    for (int i = 0; i < _cart.phone.length; i++) {
+      if (phone.phoneId == _cart.phone[i].phoneId) {
+        isContain = true;
+        index = i;
+        break;
+      }
+    }
     if (isContain) {
-      final index = _cart.phone.indexOf(phone);
       _cart.quantity[index] -= quantity;
       if (_cart.quantity[index] == 0) {
         _cart.phone.removeAt(index);

@@ -5,7 +5,6 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:se_final_app/common/customer_bottom_bar.dart';
 import 'package:se_final_app/constants/global_variables.dart';
-import 'package:se_final_app/features/home/screens/home_screen.dart';
 import 'package:se_final_app/models/cart.dart';
 import 'package:se_final_app/models/phone.dart';
 import 'package:se_final_app/provider/cart_provider.dart';
@@ -64,9 +63,10 @@ class PaymentServices {
             phone: [],
             quantity: [],
           );
-          Navigator.pushNamed(
+          Navigator.pushNamedAndRemoveUntil(
             context,
             CustomerBottomBar.routeName,
+            (route) => false,
           );
         },
       );

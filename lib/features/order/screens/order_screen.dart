@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:se_final_app/constants/global_variables.dart';
 import 'package:se_final_app/features/order/services/order_services.dart';
 import 'package:se_final_app/features/order/widgets/order_card.dart';
+import 'package:se_final_app/features/order_details/screens/order_details_screen.dart';
 import 'package:se_final_app/models/order.dart';
 
 class OrderScreen extends StatefulWidget {
@@ -17,6 +18,14 @@ class _OrderScreenState extends State<OrderScreen> {
   void getOrders() async {
     orderList = await _orderServices.getOrders(context: context);
     setState(() {});
+  }
+
+  void navigateToOrderDetails(Order order) {
+    Navigator.pushNamed(
+      context,
+      OrderDetailsScreen.routeName,
+      arguments: order,
+    );
   }
 
   @override
@@ -61,7 +70,10 @@ class _OrderScreenState extends State<OrderScreen> {
                 child: ListView.builder(
                   itemBuilder: (_, index) {
                     final order = orderList[index];
-                    return OrderCard(order: order);
+                    return GestureDetector(
+                      onTap: () => navigateToOrderDetails(order),
+                      child: OrderCard(order: order),
+                    );
                   },
                   itemCount: orderList.length,
                 ),
